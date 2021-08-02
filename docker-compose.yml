@@ -1,0 +1,14 @@
+version: "3"
+services:
+        golang:
+                tty: true
+                build: "./docker/golang"
+                ports:
+                        - "8088"
+
+        nginx:
+                build: "./docker/nginx"
+                ports:
+                        - "80:80"
+                depends_on:
+                        - "golang"
