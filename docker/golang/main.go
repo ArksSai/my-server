@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/golang_db"
 )
 
 //func test(context *gin.Context) {
@@ -64,6 +65,9 @@ func main() {
 	//server.GET("/", index_page)
 	server.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": "Hello Metafalica"})
+	})
+	server.GET("/db", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"username": golang_db.Connect()})
 	})
 	server.Run(":8088")
 
