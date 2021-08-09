@@ -61,7 +61,10 @@ func main() {
 	server.Static("/assets", "template/assets")
 	server.GET("/login", LoginPage)
 	server.POST("/login", LoginAuth)
-	server.GET("/", index_page)
+	//server.GET("/", index_page)
+	server.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"data": "Hello Metafalica"})
+	})
 	server.Run(":8088")
 
 }
