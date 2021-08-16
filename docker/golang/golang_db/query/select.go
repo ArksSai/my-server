@@ -1,4 +1,4 @@
-package query
+package golang_db
 
 import (
 	"database/sql"
@@ -10,7 +10,7 @@ type Account struct {
 	email            string
 	phone            string
 	username         string
-	password         string
+	Password         string
 	create_at        int
 	create_ip_at     string
 	last_login_at    int
@@ -19,15 +19,15 @@ type Account struct {
 	status           int
 }
 
-func Select(db *sql.DB, input int) string {
-	account := new(Account)
-	row := db.QueryRow("select * from account_user where id=?", input)
+func SelectById(db *sql.DB, id int) (Account, error) {
+	account := Account{}
+	row := db.QueryRow("select * from account_user where id=?", id)
 	if err := row.Scan(
 		&account.id,
 		&account.email,
 		&account.phone,
 		&account.username,
-		&account.password,
+		&account.Password,
 		&account.create_at,
 		&account.create_ip_at,
 		&account.last_login_at,
@@ -36,10 +36,9 @@ func Select(db *sql.DB, input int) string {
 		&account.status,
 	); err != nil {
 		fmt.Printf("Fail: ", err)
-		return "Fail"
+		return account, err
 	}
-	fmt.Println("Success: ", *account)
 
-	return account.username
+	return account, nil
 
 }

@@ -5,15 +5,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/golang_db"
+	"github.com/gin-gonic/login"
 )
 
 //func test(context *gin.Context) {
 //	context.HTML(http.StatusOK, "index.html", nil)
 //}
-func LoginPage(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.html", nil)
-}
+//func LoginPage(c *gin.Context) {
+//	c.HTML(http.StatusOK, "login.html", nil)
+//}
 
 func LoginAuth(c *gin.Context) {
 	var (
@@ -51,24 +51,18 @@ func LoginAuth(c *gin.Context) {
 
 }
 
-func index_page(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", nil)
-}
+//func index_page(c *gin.Context) {
+//	c.HTML(http.StatusOK, "index.html", nil)
+//}
 
 func main() {
 	server := gin.Default()
-	//server.LoadHTMLGlob("template/html/*")
 	server.LoadHTMLFiles("index.html", "template/html/login.html")
 	server.Static("/assets", "template/assets")
-	server.GET("/login", LoginPage)
-	server.POST("/login", LoginAuth)
-	//server.GET("/", index_page)
-	server.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "Hello Metafalica"})
-	})
-	server.GET("/db", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"username": golang_db.Connect()})
-	})
+
+	server.GET("/login", login.LoginPage)
+	server.POST("/login", login.LoginAuth)
+
 	server.Run(":8088")
 
 }

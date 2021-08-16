@@ -1,0 +1,11 @@
+mysql:
+  master:
+    host: 127.0.0.1
+    port: 3306
+    username: "root"
+    password: "12345678"
+    dbname: "arksdb"
+    network: "tcp"
+    maxIdle: 10
+    maxConn: 100
+    connMaxLifetime: 30
